@@ -1,0 +1,14 @@
+# ##############################################################################
+#
+# ##############################################################################
+spring:
+    datasource:
+      url: jdbc:sqlite:TEST.db
+      #username: ...
+      #password: ...
+      driverClassName: org.sqlite.JDBC
+
+    jpa:
+      database-platform: that.custom.SQLiteDialect
+      hibernate:
+        ddl-auto: update

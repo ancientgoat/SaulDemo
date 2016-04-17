@@ -1,0 +1,129 @@
+/**
+ * From : https://examples.javacodegeeks.com/core-java/gradle/gradle-sourcesets-example/
+ */
+//buildscript {
+//    repositories {
+//        mavenCentral()
+//        mavenLocal()
+//        jcenter()
+//    }
+//    dependencies {
+//        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.3.RELEASE")
+//    }
+//}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+
+//apply plugin: 'spring-boot'
+//apply plugin: GreetingPlugin
+//
+//class GreetingPlugin implements Plugin<Project> {
+//    void apply(Project project) {
+//        project.task('hello') << {
+//            println "Hello from the GreetingPlugin"
+//        }
+//    }
+//}
+//mainClassName = "com.premierinc.SrtApplication"
+
+repositories {
+    mavenCentral()
+    // maven { url "someUrl" }
+}
+
+dependencies {
+    //implCompile sourceSets.api.output
+    //testCompile sourceSets.api.output
+    //testCompile sourceSets.impl.output
+//  <groupId>com.fasterxml.jackson.dataformat</groupId>
+//  <artifactId>jackson-dataformat-yaml</artifactId>
+//  <version>2.7.4-SNAPSHOT</version>
+//    compile group: 'com.beust', name: 'jcommander', version: '1.48'
+    //compile group: 'org.yaml', name: 'snakeyaml', version: '1.17'
+
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+}
+
+//sourceSets.all { set ->
+//    def jarTask = task("${set.name}Jar", type: Jar) {
+//        baseName = baseName + "-$set.name"
+//        from set.output
+//    }
+//
+//    artifacts {
+//        archives jarTask
+//    }
+//}
+//
+//sourceSets {
+//    api
+//    impl
+//    main{
+//        java {
+//            srcDir 'src/api/java'
+//            srcDir 'src/impl/java'
+//        }
+//    }
+//    test {
+//        java {
+//            srcDir 'src/test/java'
+//        }
+//    }
+//}
+//
+//// Build separate jars for each code gen area.
+//jar {
+//    from sourceSets.api.output
+//    from sourceSets.impl.output
+//}
+//
+//javadoc {
+//    // but the main sourceset contains both api & impl sourceset, javadoc will generate all documentation
+//    source sourceSets.api.allJava
+//}
+//
+//task sourceSetProperties << {
+//    sourceSets {
+//        main {
+//            println "----------- SourceSets Start ----------------"
+//            println "java.srcDirs = ${java.srcDirs}"
+//            println "resources.srcDirs = ${resources.srcDirs}"
+//            println "java.files = ${java.files.name}"
+//            println "allJava.files = ${allJava.files.name}"
+//            println "resources.files = ${resources.files.name}"
+//            println "allSource.files = ${allSource.files.name}"
+//            println "output.classesDir = ${output.classesDir}"
+//            println "output.resourcesDir = ${output.resourcesDir}"
+//            println "output.files = ${output.files}"
+//            println "----------- SourceSets End ----------------"
+//        }
+//    }
+//}
+
+test {
+    testLogging {
+        // Make sure output from
+        // standard out or error is shown
+        // in Gradle output.
+        showStandardStreams = true
+
+        // Or we use events method:
+        // events 'standard_out', 'standard_error'
+
+        // Or set property events:
+        // events = ['standard_out', 'standard_error']
+
+        // Instead of string values we can
+        // use enum values:
+        // events org.gradle.api.tasks.testing.logging.TestLogEvent.STANDARD_OUT,
+        //        org.gradle.api.tasks.testing.logging.TestLogEvent.STANDARD_ERROR,
+    }
+}
+//
+// We use the Gradle Wrapper
+//
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.12'
+}
