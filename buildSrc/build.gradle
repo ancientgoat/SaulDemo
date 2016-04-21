@@ -24,7 +24,8 @@ repositories {
 dependencies {
     compile gradleApi()
     compile localGroovy()
-    compile group: 'org.xerial', name: 'sqlite-jdbc', version: '3.8.11.2'
+    compile group: 'com.h2database', name: 'h2', version: '1.4.187'
+    //compile group: 'org.xerial', name: 'sqlite-jdbc', version: '3.8.11.2'
 
 //    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.7.3'
 //    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.7.3'
@@ -46,3 +47,5 @@ dependencies {
 
     testCompile group: 'junit', name: 'junit', version: '4.11'
 }
+
+// def managedVersions = dependencyManagement.managedVersions

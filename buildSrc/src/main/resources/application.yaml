@@ -3,12 +3,48 @@
 # ##############################################################################
 spring:
     datasource:
-      url: jdbc:sqlite:TEST.db
+      url: jdbc:h2:mem:test
+      #url: jdbc:sqlite:TEST.db
       #username: ...
       #password: ...
-      driverClassName: org.sqlite.JDBC
+      #driverClassName: org.sqlite.JDBC
+      driverClassName: org.h2.Driver
 
     jpa:
-      database-platform: that.custom.SQLiteDialect
-      hibernate:
-        ddl-auto: update
+      database-platform: org.hibernate.dialect.H2Dialect
+      #database-platform: that.custom.SQLiteDialect
+      #hibernate:
+      #  ddl-auto: update
+
+# ##############################################################################
+# spring.datasource.platform=h2
+# # For some reason the OMM schema wasn't being created during tests.  this was the simplest fix.
+# spring.datasource.url=jdbc:h2:mem:test;INIT=CREATE SCHEMA IF NOT EXISTS OMM;
+# ##############################################################################
+
+# ##############################################################################
+# trs.db.driver=org.postgresql.Driver
+# trs.db.url=jdbc:postgresql://localhost:5432/dev1
+# trs.db.user=postgres
+# trs.db.password=postgres
+# trs.db.type=POSTGRES
+# trs.db.database.name=dev1
+# # Database Connection Pool Setting
+# # if using local box use minconn = 3
+# db.connpool.minconn=1
+# # if using local box use maxconn = 20
+# db.connpool.maxconn=6
+# ##############################################################################
+
+#spring:
+#    datasource:
+#      url: jdbc:sqlite:TEST.db
+#      #username: ...
+#      #password: ...
+#      driverClassName: org.sqlite.JDBC
+#
+#    jpa:
+#      database-platform: that.custom.SQLiteDialect
+#      hibernate:
+#        ddl-auto: update
+#

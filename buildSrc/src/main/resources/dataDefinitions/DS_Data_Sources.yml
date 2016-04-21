@@ -1,0 +1,9 @@
+# ##############################################################################
+# Data Sources
+# ##############################################################################
+DataSources:
+  dataSource:
+    - name : MY_SQL_DB_SOURCE
+      type : SQL_DB
+      url: jdbc:h2:mem:test
+      driverClassName: org.h2.Driver

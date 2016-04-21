@@ -1,4 +1,4 @@
-package org.saul.datadefinition;
+package org.saul.datadefinition.model.datadefinition;
 
 import com.beust.jcommander.internal.Lists;
 import com.beust.jcommander.internal.Sets;
@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 /**
  *
  */
-public class SqlPacket {
+public class SaulSqlPacket {
 
 	public static final String DELIMITER = ":";
 
@@ -18,7 +18,7 @@ public class SqlPacket {
 	private String adjustedSql;
 	private Set<String> parameterNameSet = Sets.newHashSet();
 
-	public SqlPacket(final String inSql) {
+	public SaulSqlPacket(final String inSql) {
 		if (null == inSql) {
 			throw new IllegalArgumentException("Input SQL not allowed to be null.");
 		}

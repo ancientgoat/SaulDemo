@@ -1,88 +1,78 @@
 package org.saul.gen
 
+import com.beust.jcommander.internal.Sets
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.saul.datadefinition.DataDefinitionDto
-import org.saul.datadefinition.DataDefinitionsDto
 import org.saul.datadefinition.JsonMapperHelper
-import org.saul.datadefinition.SqlPacket
+import org.saul.datadefinition.model.datadefinition.SaulDataDefinition
+import org.saul.datadefinition.model.datadefinition.SaulDataDefinitions
+import org.saul.datadefinition.model.datadefinition.SaulMasterDefinitions
+import org.saul.datadefinition.model.datasource.SaulDataSources
 import org.saul.util.ExceptionHelper
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder
 import org.springframework.context.annotation.Bean
 import org.springframework.core.io.ClassPathResource
-
-//import org.springframework.beans.factory.annotation.Autowired
-//import org.springframework.boot.SpringApplication
-//import org.springframework.boot.autoconfigure.SpringBootApplication
-//import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder
-//import org.springframework.context.annotation.Bean
-//import org.springframework.core.io.ClassPathResource
+import org.springframework.stereotype.Component
 
 import javax.sql.DataSource
 
 /**
  *
  */
-//@Component
-//@SpringBootApplication
+@Component
+// @SpringBootApplication
 class SaulOutput implements Plugin<Project> {
 
     public static final String DATA_DEFINITION_DIR = "dataDefinitions/";
-
-//    @Autowired
-//    private DataSource dataSource;
-
-
-//    public static void main(String[] args) {
-//        SpringApplication.run(SaulOutput.class, args);
-//    }
-
-    @Bean
-    public DataSource dataSource() {
-        DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
-        dataSourceBuilder.driverClassName("org.sqlite.JDBC");
-        dataSourceBuilder.url("jdbc:sqlite:TEST.db");
-        return dataSourceBuilder.build();
-    }
+    public static final String DATA_DEFINITION_FILE_PREFIX = "DD_";
+    public static final String DATA_SOURCE_FILE_PREFIX = "DS_";
 
     void apply(Project project) {
 
-        DataSource ds = dataSource();
-
-        def connection = ds.getConnection()
-        def statement = connection.prepareStatement("CREATE TABLE IF NOT EXISTS TEST ( ID Integer );")
-        def update = statement.executeUpdate()
+        // SaulDataSource ds = saulDataSource();
+        //
+        // def connection = ds.getConnection()
+        // def statement = connection.prepareStatement("CREATE TABLE IF NOT EXISTS TEST ( ID Integer );")
+        // def update = statement.executeUpdate()
 
         final ClassPathResource resource = new ClassPathResource(DATA_DEFINITION_DIR);
 
-        tryThis(resource)
+        final SaulMasterDefinitions masterDefinitions = readYamlSources(resource)
 
-        project.task('hello') << { println "Hello from the GreetingPlugin" }
-        File dir = project.projectDir
+        // project.task('hello') << { println "Hello from the GreetingPlugin" }
+        // File dir = project.projectDir
+        // masterDefinition.getDataDefinition("x");
+
+        flipThroughDataDefinitions(masterDefinitions);
 
 
-        System.out.println("package org.saul;");
-        System.out.println("package org.saul;");
-        System.out.println("package org.saul;");
-        System.out.println("package org.saul;");
-        System.out.println("package org.saul;");
-        System.out.println("package org.saul;");
-        System.out.println("package org.saul;");
-        System.out.println("package org.saul;");
-        System.out.println("package org.saul;");
-        System.out.println("package org.saul;");
-        System.out.println("package org.saul;");
+        System.out.println("*** === *** === *** === *** === *** === *** === *** === *** === *** === *** === ");
+    }
+
+    /**
+     * @param inMasterDefinition
+     */
+    private void flipThroughDataDefinitions(final SaulMasterDefinitions inMasterDefinitions) {
+
+        for (final SaulDataDefinition dataDef : inMasterDefinitions.getDataDefinitionSet()) {
+
+            def dataSourceName = dataDef.getDataSourceName()
+            def dataSourceDef = inMasterDefinitions.getDataSource(dataSourceName)
+
+
+
+        }
     }
 
     /**
      *
      */
-    def tryThis(final ClassPathResource inResource) {
+    def SaulMasterDefinitions readYamlSources(final ClassPathResource inResource) {
 
-        System.out.println("***********************************");
-        System.out.println("***********************************");
-        System.out.println("***********************************");
+        final Set<SaulDataSources> sourceSet = Sets.newHashSet()
+        final Set<SaulDataDefinition> definitionSet = Sets.newHashSet()
 
         def topDir = inResource.getFile()
 
@@ -92,34 +82,43 @@ class SaulOutput implements Plugin<Project> {
 
         def files = topDir.listFiles()
 
-        for ( final File file : files){
+        for (final File file : files) {
 
-            final List<DataDefinitionDto> dataDefinitionDtos = outputYaml(file);
+            if (file.getName().startsWith(DATA_SOURCE_FILE_PREFIX)) {
 
-            if (0 < dataDefinitionDtos.size()) {
+                final SaulDataSources saulDataSources = yamlToBean(file, SaulDataSources.class);
+                sourceSet.addAll(saulDataSources.getDataSourceList());
 
-                final DataDefinitionDto dataDefinitionDto = dataDefinitionDtos.get(0);
-                final SqlPacket sqlPacket = new SqlPacket(dataDefinitionDto.getSql());
+            } else if (file.getName().startsWith(DATA_DEFINITION_FILE_PREFIX)) {
 
-                System.out.println("***********************************");
-
+                final SaulDataDefinitions dataDefinitions = yamlToBean(file, SaulDataDefinitions.class);
+                definitionSet.addAll(dataDefinitions.getSaulDataDefinitionSet());
             }
         }
 
-        System.out.println("***********************************");
-        System.out.println("***********************************");
+        SaulMasterDefinitions masterDefinitions = new SaulMasterDefinitions(definitionSet, sourceSet);
+
+        // Assign DataSources
+        for (final SaulDataDefinition dataDef : masterDefinitions.getDataDefinitionSet()) {
+            def dataSourceName = dataDef.getDataSourceName()
+            if (null == dataSourceName) {
+                throw new IllegalArgumentException(String.format("Data Source Name can NOT be null for DataDef '%s'" +
+                        ".", dataDef.getName()))
+            }
+            dataDef.setDataSource(masterDefinitions.getDataSource(dataSourceName))
+        }
+
+        return masterDefinitions;
     }
 
     /**
      *
      */
-    private List<DataDefinitionDto> outputYaml(final File inFile) {
+    private <C> C yamlToBean(final File inFile, final Class inClazz) {
         try {
             final ObjectMapper mapper = JsonMapperHelper.newInstanceYaml();
-            final DataDefinitionsDto definitionsDto = mapper.readValue(inFile, DataDefinitionsDto.class);
-            final List<DataDefinitionDto> dataDefinitionList = definitionsDto.getDataDefinition();
-
-            return dataDefinitionList;
+            final C yamlFile = mapper.readValue(inFile, inClazz);
+            return yamlFile;
         } catch (Exception e) {
             println ExceptionHelper.toString(e)
             throw new IllegalArgumentException(e);

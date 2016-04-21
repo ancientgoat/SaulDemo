@@ -4,16 +4,17 @@
 # Where does your milk come from?
 # #################################
 ---
-DataDefinitionsDto:
+DataDefinitions:
   dataDefinition:
     - identity :
+      dataSource : MY_SQL_DB_SOURCE
       sql : |
         SELECT  *
         FROM    TEST_02
 
 
 #---
-#DataDefinitionsDto:
+#SaulDataDefinitions:
 #  dataDefinition:
 #    - identity :
 #        source     : TD
