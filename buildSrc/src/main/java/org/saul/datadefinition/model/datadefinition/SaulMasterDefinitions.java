@@ -17,13 +17,13 @@ import java.util.stream.Collectors;
 public class SaulMasterDefinitions {
 
     public Set<SaulDataDefinition> dataDefinitionSet;
-    public List<SaulDataSource> dataSourceSet;
+    public Set<SaulDataSource> dataSourceSet;
 
     public final Map<String, SaulDataDefinition> dataDefinitionMap = Maps.newHashMap();
     public final Map<String, SaulDataSource> dataSourceMap = Maps.newHashMap();
 
     public SaulMasterDefinitions(final Set<SaulDataDefinition> inDataDefinitionSet,
-                                 final List<SaulDataSource> inDataSourceSet) {
+                                 final Set<SaulDataSource> inDataSourceSet) {
 
         this.dataDefinitionSet = inDataDefinitionSet;
         this.dataSourceSet = inDataSourceSet;
@@ -107,7 +107,7 @@ public class SaulMasterDefinitions {
     /**
      *
      */
-    public List<SaulDataSource> getDataSourceSet() {
+    public Set<SaulDataSource> getDataSourceSet() {
         return dataSourceSet;
     }
 

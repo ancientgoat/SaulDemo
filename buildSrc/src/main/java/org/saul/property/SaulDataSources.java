@@ -1,46 +1,33 @@
 package org.saul.property;
 
-import com.google.common.collect.Lists;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
+import com.google.common.collect.Sets;
+import java.util.Set;
 
 /**
  *
  */
-//@ConfigurationProperties(locations = "classpath:mail.properties", prefix = "datasource")
-@Component
-@ConfigurationProperties(prefix = "DataSources")
+// @ConfigurationProperties(locations = "classpath:mail.properties", prefix = "datasource")
+@JsonRootName("DataSources")
 public class SaulDataSources {
 
 	private String elmo;
 
-	@NotNull
-	@Valid
-	private List<SaulDataSource> saulDataSource = Lists.newArrayList(); //	Sets.newHashSet();
+	@JsonProperty("dataSource")
+	private Set<SaulDataSource> saulDataSources = Sets.newHashSet(); //	Sets.newHashSet();
 
-	public List<SaulDataSource> getSaulDataSource() {
-		return saulDataSource;
+	public Set<SaulDataSource> getSaulDataSources() {
+		return saulDataSources;
 	}
 
-	public void setSaulDataSource(List<SaulDataSource> inSaulDataSource) {
-		this.saulDataSource = inSaulDataSource;
-	}
-
-	public String getElmo() {
-		return elmo;
-	}
-
-	public void setElmo(String elmo) {
-		this.elmo = elmo;
+	public void setSaulDataSources(Set<SaulDataSource> inSaulDataSources) {
+		this.saulDataSources = inSaulDataSources;
 	}
 
 	public final String dumpToString() {
 		final StringBuilder sb = new StringBuilder();
-		for (final SaulDataSource ds : this.saulDataSource) {
+		for (final SaulDataSource ds : this.saulDataSources) {
 			sb.append(ds.dumpToString());
 		}
 		return sb.toString();
