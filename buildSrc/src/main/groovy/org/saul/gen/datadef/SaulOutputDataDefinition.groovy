@@ -8,8 +8,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties
 /**
  *
  */
-@org.springframework.stereotype.Component
-@ConfigurationProperties(locations = "classpath:application.yml")
+// @org.springframework.stereotype.Component
+// @ConfigurationProperties(locations = "classpath:application.yml")
 public class SaulOutputDataDefinition implements Plugin<Project> {
 
      /**
@@ -27,7 +27,8 @@ public class SaulOutputDataDefinition implements Plugin<Project> {
                 .findAll { !filtered.contains(it.key) }
                 .join('\n')
         println "************: SaulOutputDataDefinition :**********"
-//
+
+        def properties = project.properties
 
         project.task('genDataDef') << {
             DxSetup.genDataDef(project);

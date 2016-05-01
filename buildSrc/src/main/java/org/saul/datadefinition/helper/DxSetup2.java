@@ -109,7 +109,7 @@ public class DxSetup2 {
 				String outputDirectory = dataDef.getOutputDirectory();
 				String fs = File.separator;
 				String outputFileDir =
-						String.format("%s%s%s%s%s%s", buildDir, fs, outputDirectory, fs, dataDef.getPathSuffix(), fs);
+						String.format("%s%s%s%s", buildDir, fs, outputDirectory, fs );
 				outputFileDir = outputFileDir.replace(fs + fs, fs);
 
 				String fullFilename = JsonMapperHelper.writeBeanToYamlFile(outputFileDir, fileName, newDataDef);
@@ -300,9 +300,9 @@ public class DxSetup2 {
 			localSet.addAll(readDefinitions(inDirectory));
 
 			// Save the location of relative directory with each DataDefinition.
-			localSet.forEach(dd -> {
-				dd.setPathSuffix(fileRelativePath);
-			});
+			//~~~~localSet.forEach(dd -> {
+			//~~~~	dd.setPathSuffix(fileRelativePath);
+			//~~~~});
 
 			this.dataDefSet.addAll(localSet);
 		}

@@ -30,7 +30,6 @@ public class SaulDataDefinition implements SaulHasName {
 	private String dataSourceName;
 	private String sql;
 	private Set<SaulDdField> fields = Sets.newHashSet();
-	private String pathSuffix;
 
 	@JsonIgnore
 	private SaulFieldMaster fieldMaster;
@@ -104,23 +103,6 @@ public class SaulDataDefinition implements SaulHasName {
 		return fields;
 	}
 
-	/**
-	 * @return String Convert the path separator in the path back to the local file system and return.
-	 */
-	public String getPathSuffix() {
-		if (null != pathSuffix) {
-			return pathSuffix.replace("/", File.separator);
-		} else {
-			return null;
-		}
-	}
-
-	public void setPathSuffix(final String inPathSuffix) {
-		if (null == this.pathSuffix) {
-			this.pathSuffix = inPathSuffix;
-		}
-	}
-
 	public void setDataSourceName(String dataSourceName) {
 		if (null == this.dataSourceName) {
 			this.dataSourceName = dataSourceName;
@@ -176,8 +158,7 @@ public class SaulDataDefinition implements SaulHasName {
 				.append(String.format("name           : %s\n", name))
 				.append(String.format("shortName      : %s\n", shortName))
 				.append(String.format("dataSourceName : %s\n", dataSourceName))
-				.append(String.format("sql            : %s\n", sql))
-				.append(String.format("pathSuffix     : %s\n", pathSuffix));
+				.append(String.format("sql            : %s\n", sql));
 
 		for (final SaulDdField field : this.fields) {
 			sb.append(field.dumpToString());
@@ -203,7 +184,6 @@ public class SaulDataDefinition implements SaulHasName {
 			this.dataDefinition.dataSourceName = inDataDef.dataSourceName;
 			this.dataDefinition.sql = inDataDef.sql;
 			this.dataDefinition.fields = Sets.newHashSet(inDataDef.fields);
-			this.dataDefinition.pathSuffix = inDataDef.pathSuffix;
 		}
 
 		public Builder setSaulDataSource(final SaulDataSource inDataSource) {
@@ -233,11 +213,6 @@ public class SaulDataDefinition implements SaulHasName {
 
 		public Builder setDataSource(final String inDataSource) {
 			this.dataDefinition.dataSourceName = inDataSource;
-			return this;
-		}
-
-		public Builder setPathSuffix(final String inSuffix) {
-			this.dataDefinition.pathSuffix = inSuffix;
 			return this;
 		}
 

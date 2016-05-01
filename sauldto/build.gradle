@@ -9,12 +9,15 @@ buildscript {
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.3.RELEASE")
     }
+    project.properties.put('ELMOWASHERE', '3 XXXXXXXXXXXXXXXXXXXXXXXXXX')
 }
 
 apply plugin: 'groovy'
 apply plugin: 'java'
 apply plugin: 'org.saul.gen.datadef'
 apply plugin: 'spring-boot'
+
+project.properties.put('ELMOWASHERE', '2 XXXXXXXXXXXXXXXXXXXXXXXXXX')
 
 sourceCompatibility = 1.8
 
@@ -28,6 +31,7 @@ println 'SaulDto : ******************************'
 println "SaulDto : *** : ${buildDir} : ***"
 println 'SaulDto : ******************************'
 println 'SaulDto : ******************************'
+project.properties.put('ELMOWASHERE', '11 XXXXXXXXXXXXXXXXXXXXXXXXXX')
 
 dependencies {
     compile group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.4.4'
@@ -51,10 +55,10 @@ dependencies {
 sourceSets {
     main {
         java {
-            srcDir 'generated-sources/src/main/java/'
+            srcDir 'generated-sources/src/main/java/src/main/java/'
         }
-        resources{
-            srcDir 'generated-sources/src/main/resources/'
+        resources {
+            srcDir 'generated-sources/src/main/resources/src/main/resources/'
         }
     }
 }

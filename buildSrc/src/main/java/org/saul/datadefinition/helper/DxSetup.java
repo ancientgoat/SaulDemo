@@ -3,14 +3,9 @@ package org.saul.datadefinition.helper;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Sets;
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.FileVisitResult;
-import java.nio.file.FileVisitor;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
-import java.nio.file.attribute.BasicFileAttributes;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 import org.gradle.api.Project;
@@ -41,6 +36,8 @@ public class DxSetup {
 	 *
 	 */
 	public static void genDataDef(Project inProject) {
+
+
 		readProperties(inProject);
 		genDataDefinitions(propertyPacket);
 	}
