@@ -7,17 +7,15 @@ buildscript {
         jcenter()
     }
     dependencies {
+        classpath group: 'org.saul', name: 'one-call-saul', version: '1.1'
         classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.3.RELEASE")
     }
-    project.properties.put('ELMOWASHERE', '3 XXXXXXXXXXXXXXXXXXXXXXXXXX')
 }
 
 apply plugin: 'groovy'
 apply plugin: 'java'
-apply plugin: 'org.saul.gen.datadef'
+apply plugin: 'org.saul.one-call-saul'
 apply plugin: 'spring-boot'
-
-project.properties.put('ELMOWASHERE', '2 XXXXXXXXXXXXXXXXXXXXXXXXXX')
 
 sourceCompatibility = 1.8
 
@@ -31,7 +29,6 @@ println 'SaulDto : ******************************'
 println "SaulDto : *** : ${buildDir} : ***"
 println 'SaulDto : ******************************'
 println 'SaulDto : ******************************'
-project.properties.put('ELMOWASHERE', '11 XXXXXXXXXXXXXXXXXXXXXXXXXX')
 
 dependencies {
     compile group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.4.4'
@@ -63,20 +60,19 @@ sourceSets {
     }
 }
 
-//publishing {
-//    publications {
-//        module1(MavenPublication) {
-//            artifact myTask("foo")
-//        }
-//        module2(MavenPublication) {
-//            artifact myTask("bar")
-//        }
-//    }
-//}
-//
-//def myTask(artifactName) {
-//    return tasks.create("my${artifactName}Task", Zip) {
-//        from 'build.gradle' { into 'foobar' }
-//        baseName = artifactName
-//    }
-//}
+
+tasks.addRule("Pattern: gen") { String taskName ->
+    if (taskName.startsWith("genData")) {
+        println "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        println "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        println "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        println "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        println "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        println "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        task(taskName) << {
+            def AA = "BB"
+            println "Pinging: " + (taskName - 'gen')
+        }
+    }
+}
+
