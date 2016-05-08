@@ -6,13 +6,13 @@ package org.saul.dto;
 public class ${className}{
 
     <#-- add class property definitions. -->
-    <#list classProperties as p>
-    private ${p.javaType} ${p.propertyName}
+    <#list fields as p>
+    private ${p.javaTypeName} ${p.propertyName};
     </#list>
 
     <#-- add class getters. -->
-    <#list classProperties as p>
-    public ${p.javaType} ${p.getterName}(){
+    <#list fields as p>
+    public ${p.javaTypeName} ${p.getterName}(){
         return this.${p.propertyName};
     }
 

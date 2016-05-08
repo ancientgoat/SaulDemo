@@ -52,10 +52,10 @@ dependencies {
 sourceSets {
     main {
         java {
-            srcDir 'generated-sources/src/main/java/src/main/java/'
+            srcDir 'build/generated-sources/src/main/java/'
         }
         resources {
-            srcDir 'generated-sources/src/main/resources/src/main/resources/'
+            srcDir 'build/generated-sources/src/main/resources/'
         }
     }
 }
@@ -76,3 +76,24 @@ tasks.addRule("Pattern: gen") { String taskName ->
     }
 }
 
+
+test {
+    testLogging {
+        // Make sure output from
+        // standard out or error is shown
+        // in Gradle output.
+        events "passed", "skipped", "failed", "standardOut", "standardError"
+        showStandardStreams = true
+
+        // Or we use events method:
+        // events 'standard_out', 'standard_error'
+
+        // Or set property events:
+        // events = ['standard_out', 'standard_error']
+
+        // Instead of string values we can
+        // use enum values:
+        // events org.gradle.api.tasks.testing.logging.TestLogEvent.STANDARD_OUT,
+        //        org.gradle.api.tasks.testing.logging.TestLogEvent.STANDARD_ERROR,
+    }
+}

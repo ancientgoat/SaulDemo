@@ -15,19 +15,19 @@ import org.springframework.context.annotation.Configuration;
 //@ComponentScan
 @SpringBootApplication
 @EnableConfigurationProperties
-//@EnableAutoConfiguration(
-//        exclude = [DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class])
+		//@EnableAutoConfiguration(
+		//        exclude = [DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class])
 class OneCallSaulDtoApplication {
 
-    public static final String DATA_DEFINITION_DIR = "dataDefinitions/";
-    public static final String DATA_DEFINITION_FILE_PREFIX = "DD_";
-    public static final String DATA_SOURCE_FILE_PREFIX = "DS_";
+	public static final String DATA_DEFINITION_DIR = "dataDefinitions/";
+	public static final String DATA_DEFINITION_FILE_PREFIX = "DD_";
+	public static final String DATA_SOURCE_FILE_PREFIX = "DS_";
 
-    public static void main(final String[] args) {
-        SpringApplication                                 //
-                .run(OneCallSaulDtoApplication.class, args)  //
-                .close();                                 // Close right away
-    }
+	public static void main(final String[] args) {
+		SpringApplication                                   //
+				.run(OneCallSaulDtoApplication.class, args) //
+				.close();                                   // Close right away
+	}
 }
 
 
