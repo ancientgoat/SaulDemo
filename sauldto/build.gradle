@@ -12,7 +12,7 @@ buildscript {
     }
 }
 
-apply plugin: 'groovy'
+apply plugin: 'maven'
 apply plugin: 'java'
 apply plugin: 'org.saul.one-call-saul'
 apply plugin: 'spring-boot'
@@ -31,6 +31,8 @@ println 'SaulDto : ******************************'
 println 'SaulDto : ******************************'
 
 dependencies {
+    compile group: 'org.saul', name: 'one-call-saul', version: '1.1'
+    compile group: 'commons-io', name: 'commons-io', version: '2.5'
     compile group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.4.4'
 
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.7.3'
@@ -61,18 +63,11 @@ sourceSets {
 }
 
 
-tasks.addRule("Pattern: gen") { String taskName ->
-    if (taskName.startsWith("genData")) {
-        println "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-        println "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-        println "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-        println "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-        println "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-        println "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-        task(taskName) << {
-            def AA = "BB"
-            println "Pinging: " + (taskName - 'gen')
-        }
+install {
+    repositories.mavenInstaller {
+        pom.version = '1.1'
+        pom.groupId = 'org.saul'
+        pom.artifactId = 'saul-demo'
     }
 }
 

@@ -5,7 +5,7 @@ DataSources:
       name            : SQLITE_TEST
       username        :
       password        :
-      url             : jdbc:sqlite:TEST.db
+      url             : jdbc:sqlite:C:/tmp/TEST.db
       driverClassName : org.sqlite.JDBC
     -
       name            : DUMMY
