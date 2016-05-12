@@ -11,3 +11,18 @@ DataDefinitions:
       sql : |
         SELECT  *
         FROM    TEST_02
+    -
+      identity :
+        name : TD_EVENT
+      dataSourceName : C3DITRSTDOC1
+      sql : |
+        SELECT  *
+        FROM    TD_EVENT
+    -
+      identity :
+        name : TD_PATIENT
+      dataSourceName : C3DITRSTDOC1
+      sql : |
+        SELECT  *
+        FROM    TD_PATIENT
+

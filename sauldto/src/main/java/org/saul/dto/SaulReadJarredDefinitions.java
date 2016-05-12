@@ -1,14 +1,11 @@
 package org.saul.dto;
 
 import com.google.common.collect.Sets;
-import java.io.BufferedInputStream;
-import java.io.File;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URL;
 import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
-import java.nio.file.Path;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Set;
@@ -38,7 +35,6 @@ public class SaulReadJarredDefinitions {
 		Set<SaulDataDefinition> definitionSet = Sets.newHashSet();
 
 		SaulDataDefinition dataDefinition;
-		org.saul.dto.TestTest02DtoSimple dto;
 
 		try {
 			ClassPathResource resource = new ClassPathResource(SAUL_DATADEF_DIR);

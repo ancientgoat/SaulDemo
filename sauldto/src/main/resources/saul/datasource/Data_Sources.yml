@@ -8,9 +8,13 @@ DataSources:
       url             : jdbc:sqlite:C:/tmp/TEST.db
       driverClassName : org.sqlite.JDBC
     -
-      name            : DUMMY
-      username        : a
-      password        : b
-      url             : c
-      driverClassName : d
+      name            : C3DITRSTDOC1
+      username        : tdrun
+      password        : smrt600
+      url             : jdbc:oracle:thin:@//c3ditrstdoc1.corp.premierinc.com:1521/TDOC
+      driverClassName : oracle.jdbc.driver.OracleDriver
+
+# trs.db.driver=oracle.jdbc.driver.OracleDriver
+#trs.db.user=tdrun
+#trs.db.password=smrt600
 
