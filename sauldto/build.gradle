@@ -63,7 +63,6 @@ sourceSets {
     }
 }
 
-
 install {
     repositories.mavenInstaller {
         pom.version = '1.1'
@@ -71,7 +70,6 @@ install {
         pom.artifactId = 'saul-demo'
     }
 }
-
 
 test {
     testLogging {
